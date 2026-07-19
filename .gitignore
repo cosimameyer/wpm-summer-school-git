@@ -1,0 +1,33 @@
+# Example .gitignore for an R research project
+# The point of this file: tell Git what to NEVER track.
+
+# --- R session junk ---
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# --- Secrets: API keys, tokens, credentials ---
+# .Renviron often holds API keys. NEVER commit it to a public repo.
+.Renviron
+*.pem
+*.key
+
+# --- Data: keep raw & sensitive data out of version control ---
+# Track your CODE, not your (potentially confidential) respondent data.
+data/raw/
+*.csv
+*.rds
+*.dta
+*.sav
+*.xlsx
+
+# --- Large / generated outputs ---
+*.log
+figures/*.png
+figures/*.pdf
+
+# --- OS / editor noise ---
+.DS_Store
+Thumbs.db
+.vscode/
