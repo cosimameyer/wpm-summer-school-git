@@ -1,6 +1,6 @@
 # WPM Summer School: Shared Git Playground 
 
-Welcome! This is the repository we all collaborate on during the Git session.
+Welcome! This is the repository we all collaborate on during the Git session 🤗
 
 You will:
 
