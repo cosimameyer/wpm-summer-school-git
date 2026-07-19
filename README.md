@@ -1,4 +1,4 @@
-# WPM Summer School — Shared Git Playground 
+# WPM Summer School: Shared Git Playground 
 
 Welcome! This is the repository we all collaborate on during the Git session.
 
@@ -15,8 +15,8 @@ You will:
 
 | File / folder | What it's for |
 |---|---|
-| `1_exercises/EXERCISE.md` | Your instructions — start here. |
-| `2_functions/EXAMPLE.R` | A template to copy for your own changes in the function(s). |
-| `2_functions/country_names.R` | A shared lookup we all edit **on the same line** — this is where we practice conflicts. |
+| `1_exercises/EXERCISE.md` | Your instructions |
+| `2_functions/EXAMPLE.R` | A template to copy for your own changes in the function(s) |
+| `2_functions/country_names.R` | A shared lookup we all edit **on the same line**. This is where we practice conflicts |
 | `3_resources/cheatsheet.md` | A cheat sheet for you with all important commands |
-| `.gitignore` | Example R `.gitignore`. Notice what it keeps out of Git. |
+| `.gitignore` | Example R `.gitignore` |
