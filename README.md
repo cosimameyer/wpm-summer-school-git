@@ -9,7 +9,7 @@ You will:
 3. Add your own tiny R helper in `functions/` and open a **Pull Request**.
 4. Take part in a **merge conflict** in `country_names.R` — and resolve it.
 
-👉 **Your step-by-step instructions are in [`EXERCISE.md`](EXERCISE.md).**
+👉 **Your step-by-step instructions are in [`EXERCISE.md`](1_exercises/EXERCISE.md).**
 
 ## What's in here
 
