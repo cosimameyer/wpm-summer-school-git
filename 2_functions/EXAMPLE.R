@@ -6,7 +6,7 @@
 
 # --- Version 1: the minimal first bloom 🌸 ----------------------------------
 # name <- function(arguments) { body }
-clean_colnames <- function(df) {
+colnames_clean <- function(df) {
   names(df) <- tolower(names(df))              # HEADLINE -> headline
   names(df) <- gsub(" ", "_", names(df))       # "birth year" -> "birth_year"
   df                                           # return the changed data frame
