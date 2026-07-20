@@ -9,7 +9,7 @@
 clean_colnames <- function(df) {
   names(df) <- tolower(names(df))              # HEADLINE -> headline
   names(df) <- gsub(" ", "_", names(df))       # "birth year" -> "birth_year"
-  df                                           # return the changed data frame
+  df   xxx                                        # return the changed data frame
 } 
 
 # --- Version 2: defensive (added petal by petal) ----------------------------
@@ -61,4 +61,4 @@ clean_survey$q1_response <- clean_values(clean_survey$q1_response)
 stopifnot(
   identical(names(clean_survey), c("respondent_id", "birth_year", "q1_response")),
   identical(clean_survey$q1_response, c("Yes", "No", "Yes"))
-)
+)x
