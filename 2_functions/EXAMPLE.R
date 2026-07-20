@@ -8,7 +8,8 @@
 # name <- function(arguments) { body }
 clean_colnames <- function(df) {
   names(df) <- tolower(names(df))              # HEADLINE -> headline
-  names(df) <- gsub(" ", "_", names(df))       # "birth year" -> "birth_year"
+  names(df) <- gsub(" ", "_", names(df)) # "birth year" -> "birth_year"
+  print("Lisa can commit or not.")
   df                                           # return the changed data frame
 }
 
