@@ -6,7 +6,7 @@
 
 # --- Version 1: the minimal first bloom 🌸 ----------------------------------
 # name <- function(arguments) { body }
-clean_colnames <- function(df) {
+clean_colnames_HANNAH <- function(df) {
   names(df) <- tolower(names(df))              # HEADLINE -> headline
   names(df) <- gsub(" ", "_", names(df))       # "birth year" -> "birth_year"
   df # return the changed data frame
@@ -16,7 +16,7 @@ clean_colnames <- function(df) {
 # --- Version 2: defensive (added petal by petal) ----------------------------
 # Same idea, but it now refuses bad input loudly and handles a couple of the
 # messy-real-world cases (trailing spaces, repeated spaces, punctuation).
-clean_colnames2 <- function(df) {
+clean_colnames_HANNAH2 <- function(df) {
   stopifnot("`df` must be a data frame" = is.data.frame(df))
 
   new <- names(df)
@@ -34,7 +34,7 @@ clean_colnames2 <- function(df) {
 }
 
 # --- Bonus: the cells are messy too 🧹 --------------------------------------
-# clean_colnames() only ever touches the HEADERS. The values in a real survey
+# clean_colnames_HANNAH() only ever touches the HEADERS. The values in a real survey
 # are messy in their own way — "1) Yes" is a label glued to its code. That's a
 # different job, so it's a different function (one function = one job).
 clean_values <- function(x) {
@@ -56,7 +56,7 @@ survey <- data.frame(
   "Q1 Response"   = c("1) Yes", "2) No", "1) Yes")
 )
 
-clean_survey <- clean_colnames(survey)
+clean_survey <- clean_colnames_HANNAH(survey)
 clean_survey$q1_response <- clean_values(clean_survey$q1_response)
 
 stopifnot(
