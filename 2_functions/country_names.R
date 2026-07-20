@@ -19,7 +19,7 @@ country_names <- c(
   "CHE"  = "___",   # 7. Pair   ("Switzerland" vs "Swiss Confederation")
   "AUT"  = "___",   # 8. Pair  ("Austria" vs "Republic of Austria")
   "MLI"  = "___",   # 9. Pair  ("Mali" vs "Republic of Mali")
-  "ITA"  = "___",   # 10. Pair  ("Italy" vs "Italian Republic")
+  "ITA"  = "Italian Republics",   # 10. Pair  ("Italy" vs "Italian Republic")
   "BIH"  = "___",   # 11. Pair  ("Bosnia and Herzegovina" vs "Bosnia-Herzegovina")
   "CIV"  = "___",   # 12. Pair  ("Ivory Coast" vs "Côte d'Ivoire")
   "NOR"  = "___",   # 13. Pair  ("Norway" vs "Kingdom of Norway")

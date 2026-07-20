@@ -11,6 +11,7 @@ clean_colnames <- function(df) {
   names(df) <- gsub(" ", "_", names(df))       # "birth year" -> "birth_year"
   df                                           # return the changed data frame
 }
+# new comment
 
 # --- Version 2: defensive (added petal by petal) ----------------------------
 # Same idea, but it now refuses bad input loudly and handles a couple of the
@@ -31,6 +32,9 @@ clean_colnames2 <- function(df) {
   names(df) <- new
   df
 }
+
+
+# new comment for me
 
 # --- Bonus: the cells are messy too 🧹 --------------------------------------
 # clean_colnames() only ever touches the HEADERS. The values in a real survey
