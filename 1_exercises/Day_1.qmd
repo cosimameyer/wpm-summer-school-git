@@ -1,0 +1,244 @@
+------------------------------------------------------------------------
+
+---
+title: "Day 1"
+format: pdf
+editor: visual
+---
+
+## Morning: Functioning and programming in R
+
+## w/ Dr. Cosima Meyer
+
+Slides: <https://cosimameyer.com/wpm-summer-school/> or bit.ly/git-and-functions
+
+and see also bit.ly/build-your-r-package and bit.ly/r-project-setup
+
+Link to the GitHub repository: <https://github.com/cosimameyer/wpm-summer-school-r-programming>
+
+### overviewR
+
+A useful package that helps with checking missing values, building coverage tables and making plots
+
+<https://github.com/cosimameyer/overviewR>
+
+**DRY** concept = **D**on't **R**epeat **Y**ourself –\> fix it once, fix it everywhere
+
+One function = one job. –\> a single function should do just one thing, not more. –\> if naming the function becomes complicates, then maybe split it into two or more functions
+
+## Anatomy of a function
+
+Name: a verb that does something
+
+Argument: the inputs, the nouns
+
+Body: the steps inside the curly brackets
+
+Return statement at the end –\> not always necessary but using return() makes it more explicit
+
+## Exercise 1:
+
+Loading the data:
+
+```{r}
+library(readr)
+ucdp_ged_sample <- read_csv("wpm-summer-school-r-programming-main/1_data/ucdp_ged_sample.csv")
+```
+
+Writing the function:
+
+```{r}
+# GOAL: write a function that takes a data frame, lowercases all of its column
+# names, and replaces spaces with underscores. A genuinely useful thing when
+# you've just imported a survey with columns like "Birth Year" and "Q1 Response".
+#
+# You have everything you need from the anatomy block:
+#   name <- function(arguments) { body }
+
+clean_colnames <- function(df) { 
+  # 1. lowercase the names. make sure to assign the lower cased names back to the names of the df
+  names(df) <- tolower(names(df))
+  # 2. replace spaces with underscores: same here --> assign the edited column names back to the column names of the dataset
+  names(df) <- gsub(" ", "_", names(df))
+  # bonus task: remove the 1) and 2) from the reponses
+  df[, 3] <- gsub("[0-9])", "", df[, 3])
+  # 3. hand the data frame back
+  return(df)
+}
+```
+
+Let's see if it works...
+
+```{r}
+# --- test data (messy on purpose) -------------------------------------------
+# The cells are messy too ("1) Yes"). Ignore them for now — the headers are
+# the job. The cells are the bonus at the bottom of this file.
+survey <- data.frame(
+  check.names = FALSE,      # let R keep the ugly names as-is
+  stringsAsFactors = FALSE,
+  "Respondent ID" = 1:3,
+  "Birth Year"    = c(1990, 1985, 2001),
+  "Q1 Response"   = c("1) Yes", "2) No", "1) Yes")
+)
+
+
+survey                     # before
+survey_clean <- clean_colnames(survey)   # after — uncomment once your function runs
+survey_clean
+```
+
+The same kind of function is also part of the *janitor* package (`clean_colnames()`).
+
+## What if the code breaks
+
+-   Read the error message
+
+-   `traceback()`: the trail of calls that led to the crash (what called what).
+
+-   `print()` / `cat()` inside the function: the quick *“what’s the value right here?”* check.
+
+-   use the `debugger`
+
+    -   `debug(clean_colnames)` \# dig in
+
+    -   `clean_colnames(survey)` \# pauses inside, step through it
+
+    -   `undebug(clean_colnames)` \# climb back out
+
+```{r}
+debug(clean_colnames)         # dig in
+clean_colnames(survey)        # pauses inside, step through it
+undebug(clean_colnames)       # climb back out
+```
+
+Debugging some broken functions
+
+```{r}
+# Bug 1 — "nothing happened?"
+clean_colnames_bug1 <- function(df) {
+  names(df) <- tolower(names(df))
+  names(df) <- gsub(" ", "_", names(df))
+}
+
+
+
+# Bug 2 — "it runs, but the names are still wrong"
+clean_colnames_bug2 <- function(df) {
+  names(df) <- tolower(names(df))
+  names(df) <- gsub("_", " ", names(df))
+  df
+}
+```
+
+## Working with the UCDP data
+
+```{r}
+library(readr)
+ged <- read_csv("wpm-summer-school-r-programming-main/1_data/ucdp_ged_sample.csv")
+```
+
+Step 1: `clean_ucdp()`
+
+```{r}
+library(dplyr)
+library(janitor)
+# |> is another pipe thingy, similar to %>% 
+clean_ucdp <- function(dat, country_filter = NULL) {
+  stopifnot(is.data.frame(dat))
+  out <- dat |>
+    clean_names() |>         # the janitor trick from Exercise 1
+    filter(!is.na(best)) |>  # drop events with no death estimate
+    rename(deaths = best)
+  return(out)
+}
+ged <- clean_ucdp(ged)
+```
+
+Step 2: `summarize_conflicts()`
+
+```{r}
+summarize_conflict <- function(dat) {
+  dat |>
+    group_by(year) |>
+    summarise(
+      total_deaths = sum(deaths),
+      n_events     = n(),
+      .groups = "drop"
+    )
+}
+
+summarize_conflict(ged)
+```
+
+Step 3: `plot_conflict()`
+
+```{r}
+library(ggplot2)
+
+plot_conflict <- function(dat, title = NULL) {
+  ggplot(dat, aes(x = year, y = total_deaths)) +
+    geom_col(fill = "#311a36") +
+    labs(title = title, x = NULL, y = "Deaths")
+}
+plot_conflict(ged)
+```
+
+Step 4: Bring them all together in one mega function
+
+```{r}
+run_conflict_report <- function(dat, country, title = NULL) {
+  if (is.null(title)) title <- paste0("Conflict in ", country)
+  dat |>
+    clean_ucdp(country_filter = country) |>
+    summarize_conflict() |>
+    plot_conflict(title = title)
+}
+
+
+run_conflict_report(ged, country = "Iraq")
+```
+
+\
+
+Exercise: extending the UCDP function to SAVE the pipeline's outputs...
+
+continue here
+
+```{r}
+export_report <- function(dat, country, dir = "reports") {
+  # 1. make sure `dir` exists (dir.create(..., recursive = TRUE))
+  dir.create('C:/Users/jmstoett/OneDrive - NTNU/Documents/PhD/Conferences and workshops/2026 Methods summer school Mannheim/reports', recursive = T)
+  # should be able to skip this because I work in an Rproject
+  # 2. build the summary table and the plot (reuse the pipeline functions)
+  dat %>% 
+    clean_ucdp(country_filter = country) %>% 
+    summary_table <- summarize_conflict()
+  dat %>% 
+    clean_ucdp(country_filter = country) %>% 
+    summarize_conflict() %>% 
+    summary_plot <- plot_conflict()  
+  # 3. build file names from `country`
+  #    hint: paste0(tolower(country), "_summary.csv")
+  file_names <- paste0(tolower(country), "_summary.csv")
+  # 4. write the csv (readr::write_csv) and the png (ggplot2::ggsave)
+  write_csv(summary_table, "filenames")
+  ggsave(filenames, plot)
+  # 5. invisibly return the paths you wrote
+  return()
+}
+
+
+export_report(ged, country = "Nigeria")
+```
+
+# Afternoon: Git & GitHub
+
+Git is essentially version control
+
+these commands ('git add code.R') go into the terminal
+
+```{r}
+getwd()
+```
+
+making changes
