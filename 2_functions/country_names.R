@@ -11,7 +11,7 @@
 
 country_names <- c(
   "USA"  = "___",   # 1. Pair    (e.g. "United States"  vs  "United States of America")
-  "GBR"   = "___",   # 2. Pair    (e.g. "United Kingdom" vs  "Great Britain")
+  "GBR"   = "United Kingdom and Northern Ireland",   # 2. Pair    (e.g. "United Kingdom" vs  "Great Britain")
   "DEU"  = "___",   # 3. Pair    (e.g. "Germany"        vs  "Federal Republic of Germany")
   "USSR" = "___",   # 4. Pair    (e.g. "Russia"         vs  "Soviet Union")
   "PRC"  = "People's Republic of China",   # 5. Pair    (e.g. "China"          vs  "People's Republic of China")
