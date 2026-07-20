@@ -12,6 +12,7 @@ colnames_clean <- function(df) {
   df # return the changed data frame
   # anna adding a comment here
 }
+# new comment
 
 # --- Version 2: defensive (added petal by petal) ----------------------------
 # Same idea, but it now refuses bad input loudly and handles a couple of the
@@ -32,6 +33,9 @@ clean_colnames_HANNAH2 <- function(df) {
   names(df) <- new
   df
 }
+
+
+# new comment for me
 
 # --- Bonus: the cells are messy too 🧹 --------------------------------------
 # clean_colnames_HANNAH() only ever touches the HEADERS. The values in a real survey
