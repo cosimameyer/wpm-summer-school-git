@@ -9,7 +9,7 @@
 clean_colnames <- function(df) {
   names(df) <- tolower(names(df))              # HEADLINE -> headline
   names(df) <- gsub(" ", "_", names(df))       # "birth year" -> "birth_year"
-  df                                           # return the changed data frame
+  return(df)                                         # return the changed data frame
 }
 
 # --- Version 2: defensive (added petal by petal) ----------------------------
