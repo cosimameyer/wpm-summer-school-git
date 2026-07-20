@@ -1,0 +1,7 @@
+---
+title: "Lisa_Script"
+output: html_document
+date: "2026-07-20"
+---
+
+This is my script.
