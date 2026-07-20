@@ -1,1 +1,1 @@
-#Ciao fwifjwoiefjoiwefjaq
+print('Hello world!')
