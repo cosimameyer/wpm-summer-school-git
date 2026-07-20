@@ -16,7 +16,7 @@ country_names <- c(
   "USSR" = "___",   # 4. Pair    (e.g. "Russia"         vs  "Soviet Union")
   "PRC"  = "___",   # 5. Pair    (e.g. "China"          vs  "People's Republic of China")
   "USA"  = "___",   # 6. Pair    (e.g. "USA" vs "United States of America")
-  "CHE"  = "___",   "Switzerland)
+  "CHE"  = "___",   # ("Switzerland") 
   "AUT"  = "___",   # 8. Pair  ("Austria" vs "Republic of Austria")
   "MLI"  = "___",   # 9. Pair  ("Mali" vs "Republic of Mali")
   "ITA"  = "___",   # 10. Pair  ("Italy" vs "Italian Republic")
